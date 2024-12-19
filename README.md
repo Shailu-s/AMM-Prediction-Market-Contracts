@@ -127,6 +127,32 @@ The main contract for the prediction market. Users can:
 - `SharesPurchased`: Emitted when shares are purchased.
 - `MarketResolved`: Emitted when the market is resolved.
 
+## Areas for Improvement and Future Enhancements
+
+1. **Modular AMM Liquidity Management:**
+   - Create a separate smart contract dedicated to managing AMM liquidity.
+   - Improves code modularity, readability, and ease of maintenance.
+   - Allows better scalability and flexibility in upgrading liquidity mechanisms.
+
+2. **Decouple Auction Mechanism:**
+   - Separate the auction logic from the main smart contract.
+   - Facilitates cleaner architecture and enables independent upgrades or changes to the auction system.
+
+3. **Support for Multiple Auction Types:**
+   - Implement various auction mechanisms (e.g., Dutch auctions, English auctions, sealed-bid auctions).
+   - Enhance the platform's functionality and cater to diverse use cases.
+
+4. **Enhanced Administrative Controls:**
+   - Introduce a more robust and granular administration framework for managing auctions and liquidity.
+   - Implement role-based access control (RBAC) for better governance and reduced risk of misuse.
+
+5. **Comprehensive Testing Suite:**
+   - Write extensive test cases using Foundry to ensure reliability and security:
+     - **Load Testing:** Simulate high transaction volumes to test contract performance under stress.
+     - **Fuzzy Testing:** Use random inputs to uncover edge cases and unexpected behaviors.
+     - **Negative Testing:** Test invalid scenarios to ensure the contract handles errors gracefully and securely.
+
+
 ---
 
 ### MockToken
@@ -145,4 +171,6 @@ A mock ERC20 token used for testing and as collateral in the AMM.
 - Validate external input carefully to avoid exploits.
 - Perform rigorous testing, especially when deploying on a production network.
 - Auditing by a third party is recommended before production deployment.
+
+
 
