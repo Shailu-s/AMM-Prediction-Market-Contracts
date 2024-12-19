@@ -9,7 +9,7 @@ contract AMMPredictionMarket is Ownable {
 
     uint256 public constant FEE_PERCENTAGE = 1; // 1% fee
     uint256 public constant MULTIPLIER = 1e18;
-    uint256 public constant MAX_LIQUIDITY_PER_TX = 1_000_000 * MULTIPLIER; // Example limit
+    uint256 public constant MAX_LIQUIDITY_PER_TX = 1_000_000 * MULTIPLIER; 
 
     enum MarketState { Open, Resolved }
     MarketState public marketState;
