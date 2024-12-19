@@ -1,16 +1,148 @@
-# AMM-Based Prediction Market
+# AMM Prediction Market Contracts
 
-This project implements a binary outcome prediction market using an Automated Market Maker (AMM) with a constant product formula.
+This project implements a decentralized automated market maker (AMM) for prediction markets using Solidity. It allows users to add liquidity, buy shares, and predict outcomes in a decentralized manner. The contract is fully compatible with ERC20 tokens for collateral and integrates key functionalities like liquidity provision, share trading, and market resolution.
 
-AMM Prediction Market Smart Contract deployed on ethereum sepolia with address 0x913e41F8144b7208e284e28120464A8FBE7cE16E. 
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Technology Stack](#technology-stack)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+  - [Deployment](#deployment)
+  - [Testing](#testing)
+- [Smart Contract Details](#smart-contract-details)
+  - [AMMPredictionMarket](#amppredictionmarket)
+  - [MockToken](#mocktoken)
+- [Security Considerations](#security-considerations)
+- [License](#license)
+
+---
+
+## Overview
+
+The **AMM Prediction Market Contracts** allow users to:
+- Provide liquidity in ERC20 tokens.
+- Buy shares for `yes` or `no` outcomes of a prediction market.
+- Resolve markets based on outcomes and redeem winnings.
+
+The AMM uses a constant product formula to calculate the price of shares, ensuring liquidity is always available. A small fee is charged on each transaction to incentivize liquidity providers.
+
+---
+
 ## Features
-- Binary outcomes (e.g., YES/NO).
-- Liquidity provisioning with proportional tracking.
-- Market resolution and payout redemption.
-- Uses ERC20 as collateral.
 
-## Setup
-1. Install Foundry:
-   ```bash
-   curl -L https://foundry.paradigm.xyz | bash
-   foundryup
+1. **Automated Market Maker (AMM):**
+   - Liquidity pools for `yes` and `no` outcomes.
+   - Dynamic pricing based on the constant product formula.
+
+2. **Liquidity Provision:**
+   - Add or remove liquidity in ERC20 tokens.
+   - Reward liquidity providers with a share of the pool.
+
+3. **Prediction Market:**
+   - Buy shares for `yes` or `no` outcomes.
+   - Resolve markets and redeem winnings.
+
+4. **Fee Mechanism:**
+   - 1% fee on every share purchase.
+
+---
+
+## Technology Stack
+
+- **Solidity:** Smart contract programming language.
+- **Foundry:** Development framework for Ethereum smart contracts.
+- **OpenZeppelin:** Reusable, secure smart contract components.
+- **ERC20 Standard:** Token standard for collateral.
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+Before running the project, ensure you have the following installed:
+
+- [Node.js](https://nodejs.org/)
+- [Foundry](https://book.getfoundry.sh/getting-started/installation)
+- [Git](https://git-scm.com/)
+- An Ethereum wallet with testnet tokens for deployment/testing.
+
+### Installation
+
+1. Clone the repository:
+   ```
+   git clone <repository_url>
+   cd AMM-Prediction-Market-Contracts
+   ```
+
+2. Install dependencies:
+    ```
+    forge install
+    ```
+
+3. Compile the contracts:
+    ```
+    forge build
+    ```
+
+## Usage
+
+### Developement
+
+1. Deploy the contracts using Foundry:
+
+```
+forge script script/Deploy.s.sol --tc Deploy --broadcast --rpc-url $RPC_URL --private-key $PRIVATE_KEY
+```
+
+### Testing
+
+1. Run the test using Foundry:
+```
+forge test
+```
+
+## Smart Contract Details
+
+### AMMPredictionMarket
+
+The main contract for the prediction market. Users can:
+- Add liquidity to the pool.
+- Buy `yes` or `no` shares.
+- Resolve the market and redeem winnings.
+
+#### Key Functions:
+- `addLiquidity(uint256 amount)`: Add liquidity to the market.
+- `buyShares(uint256 yesAmount, uint256 noAmount)`: Buy shares for `yes` or `no` outcomes.
+- `resolveMarket(address winningOutcome)`: Resolve the market with the winning outcome.
+- `redeemWinnings()`: Redeem winnings after the market is resolved.
+
+#### Events:
+- `LiquidityAdded`: Emitted when liquidity is added.
+- `LiquidityRemoved`: Emitted when liquidity is removed.
+- `SharesPurchased`: Emitted when shares are purchased.
+- `MarketResolved`: Emitted when the market is resolved.
+
+---
+
+### MockToken
+
+A mock ERC20 token used for testing and as collateral in the AMM.
+
+#### Key Features:
+- Implements the ERC20 standard.
+- Mints 1 million tokens to the deployer.
+
+---
+
+## Security Considerations
+
+- Ensure the `owner` account is securely managed, as it has the ability to resolve the market.
+- Validate external input carefully to avoid exploits.
+- Perform rigorous testing, especially when deploying on a production network.
+- Auditing by a third party is recommended before production deployment.
+
